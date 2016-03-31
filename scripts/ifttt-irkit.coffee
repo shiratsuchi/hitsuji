@@ -8,6 +8,14 @@ module.exports = (robot) ->
   deviceName = 'home'
   messageName = 'aircon-加湿暖房'
 
+  # 12/1 から 3/25 まで
+  inWinter = ->
+    now = moment()
+    startOfWinter = moment(now).month('Dec').date(1)
+    endOfWinter = moment(now).month('Mar').date(25)
+
+    now.isAfter(startOfWinter) or now.isBefore(endOfWinter)
+
   lastSended = ->
     key = "last-sended-#{encodeURIComponent(deviceName)}-#{encodeURIComponent(messageName)}"
     last = robot.brain.get(key)
@@ -25,6 +33,9 @@ module.exports = (robot) ->
     "#{herokuUrl || '/'}irkit/messages/#{encodeURIComponent(deviceName)}/#{encodeURIComponent(messageName)}"
 
   robot.listeners.push new hubotSlack.SlackBotListener robot, /もうすぐ :frog: よ/i, (msg) ->
+    unless inWinter()
+      return
+
     if (last = lastSended())
       msg.send "#{last} に実行したので、今はしないよ"
       return
