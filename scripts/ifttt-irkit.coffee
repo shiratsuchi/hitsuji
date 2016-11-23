@@ -8,10 +8,10 @@ module.exports = (robot) ->
   deviceName = 'home'
   messageName = 'aircon-加湿暖房'
 
-  # 12/1 から 3/25 まで
+  # 11/20 から 3/25 まで
   inWinter = ->
     now = moment()
-    startOfWinter = moment(now).month('Dec').date(1)
+    startOfWinter = moment(now).month('Nov').date(20)
     endOfWinter = moment(now).month('Mar').date(25)
 
     now.isAfter(startOfWinter) or now.isBefore(endOfWinter)
