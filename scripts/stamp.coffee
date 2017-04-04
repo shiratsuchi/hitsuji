@@ -14,7 +14,7 @@ module.exports = (robot) ->
     { key: /ありがと/i,                image: 'thanks.png' },
   ]
 
-  for stamp in stamps
-    do (stamp) ->
-      robot.hear stamp.key, (res) ->
-        res.send(base + stamp.image)
+  # for stamp in stamps
+  #   do (stamp) ->
+  #     robot.hear stamp.key, (res) ->
+  #       res.send(base + stamp.image)
